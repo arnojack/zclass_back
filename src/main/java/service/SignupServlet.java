@@ -1,6 +1,6 @@
 package service;
 
-import Dao.UserSignin;
+import Dao.UserSignup;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,13 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet("/loginServlet")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/SignupServlet")
+public class SignupServlet extends HttpServlet {
 
     /**
      * Constructor of the object.
      */
-    public LoginServlet() {
+    public SignupServlet() {
         super();
     }
 
@@ -47,14 +47,10 @@ public class LoginServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         //这个是初始化这个UserDao类，会先调用无参构造器
-        UserSignin userSignin = new UserSignin();
+        UserSignup userSignup = new UserSignup();
 
         //OK和Wrong会在安卓端被接收到用来判断服务端是否通过了验证
-        if (userSignin.isLoginOK(request)) {
-            out.print("Ok");
-        }else {
-            out.print("Wrong");
-        }
+        out.print(userSignup.isSignupOK(request));
 
         out.flush();
         out.close();

@@ -1,5 +1,7 @@
 package jdbc;
 
+import Daojiao.User;
+
 import java.sql.*;
 
 public class JdbcGet {
@@ -42,7 +44,7 @@ public class JdbcGet {
         return resultSet;
     }
 
-    public ResultSet jdbcget_user(String user_id,String user_password){
+    public ResultSet jdbcget_userSignin(User user){
 
         try {
             Connection connection = JdbcUtils.getConnection();                  //获取
@@ -51,10 +53,10 @@ public class JdbcGet {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
             //第一个? 用username字符串去替换
-            preparedStatement.setString(1, user_id);
+            preparedStatement.setString(1, user.getuserId());
 
             //第二个? 用password字符串去替换
-            preparedStatement.setString(2, user_password);
+            preparedStatement.setString(2, user.getPassword());
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -69,7 +71,7 @@ public class JdbcGet {
     /*
     数据库插入
      */
-    public void jdbcInser(String table,String col,String value){
+    public String jdbcInser_userSignup(User user){
 
         ResultSet resultSet = null;
         PreparedStatement preparedstatement = null;
@@ -78,25 +80,24 @@ public class JdbcGet {
         try {
             connection = JdbcUtils.getConnection();
 
-            String sql = "INSERT INTO  ?(?) "
-                    +" values(?)";
+            String sql = "insert into  user(user_id,user_password)  value(?,?)";
             preparedstatement = connection.prepareStatement(sql);
 
 
             //第一个? 用username字符串去替换
-            preparedstatement.setString(1, table);
-            preparedstatement.setString(2, col);
-            preparedstatement.setString(3, value);
+            preparedstatement.setString(1, user.getuserId());
+            preparedstatement.setString(2, user.getPassword());
 
-            int result = preparedstatement.executeUpdate(sql);
+            int result = preparedstatement.executeUpdate();
             //executeUpdate:用来实现INSERT、UPDATE 或 DELETE 语句,返回值表示执行sql语句之后影响到的数据行数
 
             System.out.println("插入了"+result+"条数据");
-
+            return "Ok";
 
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+            return "Wrong";
         }finally {
 
             JdbcUtils.releaseResc(resultSet, preparedstatement, connection);        //释放资源
