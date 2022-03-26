@@ -3,30 +3,32 @@ package Daojiao;
 import java.io.Serializable;
 
 public class Work implements Serializable {
-    private String stu_id;
-    private String cou_on_id;//课程编号
+    private int    cou_stu_id;
     private String cou_work_id;//作业编号
     private String cou_work;
+    private String way;
 
     //用于URL传参和取参时的key
+    public static String WAY = "way";
     public static String COUONID = "cou_on_id";
     public static String WORKID = "cou_work_id";
-    public static String USERID = "user_id";
+    public static String USERID = "stu_userid";
 
-    public String getStu_id() {
-        return stu_id;
+
+    public String getWay() {
+        return way;
     }
 
-    public void setStu_id(String stu_id) {
-        this.stu_id = stu_id;
+    public void setWay(String way) {
+        this.way = way;
     }
 
-    public String getCou_on_id() {
-        return cou_on_id;
+    public int getCou_stu_id() {
+        return cou_stu_id;
     }
 
-    public void setCou_on_id(String cou_on_id) {
-        this.cou_on_id = cou_on_id;
+    public void setCou_stu_id(int cou_stu_id) {
+        this.cou_stu_id = cou_stu_id;
     }
 
     public String getCou_work_id() {

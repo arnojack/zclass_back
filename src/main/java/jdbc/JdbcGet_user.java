@@ -5,19 +5,6 @@ import Daojiao.User;
 import java.sql.*;
 
 public class JdbcGet_user {
-    //判断结果非空
-    public static boolean isExistColumn(ResultSet rs) {
-        try {
-            if (rs.next() ) {
-                return true;
-            }
-        }
-        catch (SQLException e) {
-            return false;
-        }
-
-        return false;
-    }
     /*
     数据库查询
      */
@@ -44,7 +31,7 @@ public class JdbcGet_user {
         return resultSet;
     }
 
-    public ResultSet jdbcget_userSignin(User user){
+    public Boolean jdbcget_userSignin(User user){
 
         try {
             Connection connection = JdbcUtils.getConnection();                  //获取
@@ -58,20 +45,18 @@ public class JdbcGet_user {
             //第二个? 用password字符串去替换
             preparedStatement.setString(2, user.getPassword());
 
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            return resultSet;            //有值则返回;
+            return preparedStatement.executeQuery().next();
 
         } catch (SQLException e) {
             e.printStackTrace();
-            return null;
+            return false;
         }
     }
 
     /*
     数据库插入
      */
-    public String jdbcInser_userSignup(User user){
+    public Boolean jdbcInser_userSignup(User user){
 
         ResultSet resultSet = null;
         PreparedStatement preparedstatement = null;
@@ -88,16 +73,17 @@ public class JdbcGet_user {
             preparedstatement.setString(1, user.getUserid());
             preparedstatement.setString(2, user.getPassword());
 
+
             int result = preparedstatement.executeUpdate();
             //executeUpdate:用来实现INSERT、UPDATE 或 DELETE 语句,返回值表示执行sql语句之后影响到的数据行数
 
             System.out.println("插入了"+result+"条数据");
-            return "Ok";
+            return true;
 
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-            return "Wrong";
+            return false;
         }finally {
 
             JdbcUtils.releaseResc(resultSet, preparedstatement, connection);        //释放资源

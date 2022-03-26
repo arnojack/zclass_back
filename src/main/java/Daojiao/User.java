@@ -11,15 +11,61 @@ public class User implements Serializable{
     private String phonenumber;
     private String password;
     private String username;
+    private String code;
+    private String profess;
+    private String school;
+    private String way;
+    private int    flag_login;
 
     //用于URL传参和取参时的key
-    public static String PHONENUMBER = "phoneNumber";
-    public static String PASSWORD = "user_password";
-    public static String USERID = "user_id";
+    public static String WAY = "way";
+    public static String PHONENUMBER = "phonenumber";
+    public static String PASSWORD = "password";
+    public static String USERID = "userid";
     //构造函数
+
+    public int getFlag_login() {
+        return flag_login;
+    }
+
+    public void setFlag_login(int flag_login) {
+        this.flag_login = flag_login;
+    }
 
     public String getUserid() {
         return userid;
+    }
+
+    public String getWay() {
+        return way;
+    }
+
+    public void setWay(String way) {
+        this.way = way;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getProfess() {
+        return profess;
+    }
+
+    public void setProfess(String profess) {
+        this.profess = profess;
+    }
+
+    public String getSchool() {
+        return school;
+    }
+
+    public void setSchool(String school) {
+        this.school = school;
     }
 
     public void setUserid(String userid) {
