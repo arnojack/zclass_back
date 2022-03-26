@@ -2,7 +2,7 @@ package Dao;
 
 
 import Daojiao.User;
-import jdbc.JdbcGet;
+import jdbc.JdbcGet_user;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.ResultSet;
@@ -16,7 +16,7 @@ public class UserSignin {
     public boolean isLoginOK(HttpServletRequest request) {
         //这两个是获得android端传过来的数据
         User user=new User();
-        user.setuserId(request.getParameter(User.USERID));
+        user.setUserid(request.getParameter(User.USERID));
         user.setPassword(request.getParameter(User.PASSWORD));
         return judge_user(user);
     }
@@ -27,8 +27,8 @@ public class UserSignin {
      */
     public boolean judge_user(User Muser) {
 
-        JdbcGet jdbcget = new JdbcGet();
+        JdbcGet_user jdbcget = new JdbcGet_user();
         ResultSet resultSet = jdbcget.jdbcget_userSignin(Muser);
-        return JdbcGet.isExistColumn(resultSet);
+        return JdbcGet_user.isExistColumn(resultSet);
     }
 }

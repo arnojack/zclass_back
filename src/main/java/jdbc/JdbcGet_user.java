@@ -4,7 +4,7 @@ import Daojiao.User;
 
 import java.sql.*;
 
-public class JdbcGet {
+public class JdbcGet_user {
     //判断结果非空
     public static boolean isExistColumn(ResultSet rs) {
         try {
@@ -53,7 +53,7 @@ public class JdbcGet {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
             //第一个? 用username字符串去替换
-            preparedStatement.setString(1, user.getuserId());
+            preparedStatement.setString(1, user.getUserid());
 
             //第二个? 用password字符串去替换
             preparedStatement.setString(2, user.getPassword());
@@ -85,7 +85,7 @@ public class JdbcGet {
 
 
             //第一个? 用username字符串去替换
-            preparedstatement.setString(1, user.getuserId());
+            preparedstatement.setString(1, user.getUserid());
             preparedstatement.setString(2, user.getPassword());
 
             int result = preparedstatement.executeUpdate();

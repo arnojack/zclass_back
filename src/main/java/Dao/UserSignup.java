@@ -1,10 +1,9 @@
 package Dao;
 
 import Daojiao.User;
-import jdbc.JdbcGet;
+import jdbc.JdbcGet_user;
 
 import javax.servlet.http.HttpServletRequest;
-import java.sql.ResultSet;
 
 /**
  *这个是模拟数据库的DAO层，如果用户和下面的phoneNumber(123456),password(abc123456)如果是一样的，就说明前端
@@ -15,7 +14,7 @@ public class UserSignup {
     public String isSignupOK(HttpServletRequest request) {
         //这两个是获得android端传过来的数据
         User user=new User();
-        user.setuserId(request.getParameter(User.USERID));
+        user.setUserid(request.getParameter(User.USERID));
         user.setPassword(request.getParameter(User.PASSWORD));
         return judge_user(user);
     }
@@ -26,7 +25,7 @@ public class UserSignup {
      */
     public String judge_user(User Muser) {
 
-        JdbcGet jdbcget = new JdbcGet();
+        JdbcGet_user jdbcget = new JdbcGet_user();
         return jdbcget.jdbcInser_userSignup(Muser);
     }
 }
