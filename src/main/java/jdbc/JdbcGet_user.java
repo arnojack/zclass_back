@@ -35,7 +35,7 @@ public class JdbcGet_user {
 
         try {
             Connection connection = JdbcUtils.getConnection();                  //获取
-            String sql = "select * from user where user_id = ? and user_password = ?"; //要运行的sql语句,通过?来替换登录账号和密码
+            String sql = "select * from user where userid = ? and password = ?"; //要运行的sql语句,通过?来替换登录账号和密码
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
@@ -65,7 +65,7 @@ public class JdbcGet_user {
         try {
             connection = JdbcUtils.getConnection();
 
-            String sql = "insert into  user(user_id,user_password)  value(?,?)";
+            String sql = "insert into  user(userid,password)  value(?,?)";
             preparedstatement = connection.prepareStatement(sql);
 
 

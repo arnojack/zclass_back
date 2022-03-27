@@ -1,9 +1,10 @@
 package service;
 
 import Dao.CourseSer;
-import Dao.UserSer;
+import com.alibaba.fastjson.JSON;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,38 +12,30 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
 
+import static Tool.Tool.resultSetToJSON;
+
+@WebServlet("/courseServlet")
 public class CourseServlet extends HttpServlet {
-    /**
-     * Constructor of the object.
-     */
+    public CourseServlet() {
+        super();
+    }
+
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        response.setContentType("text/html");
-        PrintWriter out = response.getWriter();
-        CourseSer myjoinedCourse =new CourseSer();
-        ResultSet resultSet =myjoinedCourse.Get_all(request);
-        out.print(resultSet);
-        out.flush();
-        out.close();
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        response.setContentType("text/html");
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+
         PrintWriter out = response.getWriter();
+        CourseSer myjoinedCourse =new CourseSer();
+        ResultSet resultSet =myjoinedCourse.Get_all(request);
+        JSON json=resultSetToJSON(resultSet);
 
-        //这个是初始化这个UserDao类，会先调用无参构造器
-        UserSer userSignin = new UserSer();
-
-        //OK和Wrong会在安卓端被接收到用来判断服务端是否通过了验证
-        if (userSignin.isLoginOK(request)) {
-            out.print("Ok");
-        }else {
-            out.print("Wrong");
-        }
-
+        out.print(json);
         out.flush();
         out.close();
     }
