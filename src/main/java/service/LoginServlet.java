@@ -1,15 +1,20 @@
 package service;
 
 import Dao.UserSer;
+import Daojiao.User;
+import com.alibaba.fastjson.JSON;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.json.Json;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import static Tool.Tool.resultSetToJSON;
 
 
 @WebServlet("/loginServlet")
@@ -32,12 +37,15 @@ public class LoginServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         //这个是初始化这个UserDao类，会先调用无参构造器
         UserSer userSignin = new UserSer();
-
-        //OK和Wrong会在安卓端被接收到用来判断服务端是否通过了验证
-        if (userSignin.isLoginOK(request)) {
-            out.print("Ok");
-        }else {
-            out.print("Wrong");
+        String method =request.getParameter(User.METHOD);
+        switch (method){
+            case "login":
+                out.print(userSignin.isLoginOK(request));
+                break;
+            case "update":
+                JSON json=userSignin.update(request);
+                out.print(json);
+                break;
         }
         out.flush();
         out.close();

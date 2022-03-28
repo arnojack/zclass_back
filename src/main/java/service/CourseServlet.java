@@ -1,6 +1,7 @@
 package service;
 
 import Dao.CourseSer;
+import Daojiao.Course;
 import com.alibaba.fastjson.JSON;
 
 import javax.servlet.ServletException;
@@ -29,13 +30,21 @@ public class CourseServlet extends HttpServlet {
 
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
+        ResultSet resultSet=null;
 
         PrintWriter out = response.getWriter();
         CourseSer myjoinedCourse =new CourseSer();
-        ResultSet resultSet =myjoinedCourse.Get_all(request);
-        JSON json=resultSetToJSON(resultSet);
-
-        out.print(json);
+        String method =request.getParameter(Course.METHOD);
+        switch (method){
+            case "Queue":
+                JSON json=myjoinedCourse.Queue(request);
+                out.print(json);
+                break;
+            case "Update":
+                String result = myjoinedCourse.Update(request);
+                out.print(result);
+                break;
+        }
         out.flush();
         out.close();
     }

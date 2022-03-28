@@ -1,32 +1,37 @@
 package jdbc;
 
 import Daojiao.User;
+import com.alibaba.fastjson.JSON;
 
 import java.sql.*;
+
+import static Tool.Tool.resultSetToJSON;
 
 public class JdbcGet_user {
     /*
     数据库查询
      */
-    public ResultSet jdbcget_all(String table){
-
-        ResultSet resultSet = null;
-        Statement statement = null;
-        Connection connection = null;
+    public JSON jdbcget_user(User user){
+        JSON resultSet = null;
+        PreparedStatement preparedStatement= null;
+        Connection connection= null;
         try {
-            connection = JdbcUtils.getConnection();        //通过JdbcUtils获取connection
-            statement = connection.createStatement();
+            connection= JdbcUtils.getConnection();
+            String sql = "select * from user where userid = ?"; //要运行的sql语句,通过?来替换登录账号和密码
 
-            String sql = "select * from "+table;
+            preparedStatement= connection.prepareStatement(sql);
 
-            resultSet = statement.executeQuery(sql);
+            //第一个? 用username字符串去替换
+            preparedStatement.setString(1, user.getUserid());
+
+
+            resultSet = resultSetToJSON(preparedStatement.executeQuery());
 
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }finally {
 
-            JdbcUtils.releaseResc(resultSet, statement, connection);        //释放资源
         }
         return resultSet;
     }
@@ -65,13 +70,14 @@ public class JdbcGet_user {
         try {
             connection = JdbcUtils.getConnection();
 
-            String sql = "insert into  user(userid,password)  value(?,?)";
+            String sql = "insert into  user(userid,username,password)  value(?,?,?)";
             preparedstatement = connection.prepareStatement(sql);
 
 
             //第一个? 用username字符串去替换
             preparedstatement.setString(1, user.getUserid());
-            preparedstatement.setString(2, user.getPassword());
+            preparedstatement.setString(2, user.getUsername());
+            preparedstatement.setString(3, user.getPassword());
 
 
             int result = preparedstatement.executeUpdate();

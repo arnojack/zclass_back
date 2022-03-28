@@ -9,6 +9,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 public class Tool {
+
     public static JSON resultSetToJSON(ResultSet resultSet) {
 //        数据集JSON格式
         JSONArray jsonArray = new JSONArray();
