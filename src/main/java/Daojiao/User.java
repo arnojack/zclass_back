@@ -10,6 +10,7 @@ public class User implements Serializable{
     private String userid;
     private String phonenumber;
     private String password;
+    private String sex;
     private String username;
     private String code;
     private String profess;
@@ -25,6 +26,10 @@ public class User implements Serializable{
     public static String PASSWORD = "password";
     public static String USERID = "userid";
     public static String USERNAME = "username";
+    public static String CODE ="code";
+    public static String PROFESS="profess";
+    public static String SCHOOL ="school";
+    public static String SEX ="sex";
     //构造函数
 
     public int getFlag_login() {
@@ -37,6 +42,14 @@ public class User implements Serializable{
 
     public String getMethod() {
         return method;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 
     public void setMethod(String method) {

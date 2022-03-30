@@ -30,6 +30,7 @@ public class CourseServlet extends HttpServlet {
 
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
         ResultSet resultSet=null;
 
         PrintWriter out = response.getWriter();

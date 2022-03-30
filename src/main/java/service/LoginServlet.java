@@ -33,6 +33,7 @@ public class LoginServlet extends HttpServlet {
 
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
 
         PrintWriter out = response.getWriter();
         //这个是初始化这个UserDao类，会先调用无参构造器

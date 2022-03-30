@@ -12,21 +12,26 @@ public class JdbcGet_course {
     /*
     数据库查询
      */
-    public Boolean jdbc_couidjudge(Cou_Stu cou_stu){
+    public Boolean jdbc_joinjudge(Cou_Stu cou_stu){
 
         try {
             Connection connection = JdbcUtils.getConnection();                  //获取
-            String sql = "select * from course where  cou_on_id = ?"; //要运行的sql语句,通过?来替换登录账号和密码
+            String sql1 = "select * from course where  cou_on_id = ?"; //要运行的sql语句,通过?来替换登录账号和密码
+            String sql2 = "select * from cou_stu,course where  cou_on_id = ? and stu_userid=?";
 
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            PreparedStatement preparedStatement1 = connection.prepareStatement(sql1);
+            PreparedStatement preparedStatement2 = connection.prepareStatement(sql2);
 
             //第一个? 用username字符串去替换
-            preparedStatement.setInt(1, Integer.parseInt(cou_stu.getCou_on_id()));
+            preparedStatement1.setInt(1, Integer.parseInt(cou_stu.getCou_on_id()));
 
+            preparedStatement2.setInt(1, Integer.parseInt(cou_stu.getCou_on_id()));
+            preparedStatement2.setString(2, cou_stu.getStu_userid());
 
-            ResultSet resultSet = (preparedStatement.executeQuery());
+            ResultSet resultSet1 = (preparedStatement1.executeQuery());
+            ResultSet resultSet2 = (preparedStatement2.executeQuery());
 
-            return resultSet.next();            //有值则返回;
+            return resultSet1.next()&& !resultSet2.next();            //有值则返回;
 
         } catch (SQLException e) {
             e.printStackTrace();

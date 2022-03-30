@@ -49,7 +49,7 @@ public class CourseSer {
         switch (cou_stu.getWay()){
             case "join":
                 JdbcGet_course jdbcjoin = new JdbcGet_course();
-                if(jdbcjoin.jdbc_couidjudge(cou_stu))
+                if(jdbcjoin.jdbc_joinjudge(cou_stu))
                     resultSet = jdbcjoin.jdbc_cou_stuin(cou_stu);
                 else
                     resultSet = "Wrong";

@@ -98,7 +98,7 @@ public class JdbcGet_user {
     /*
     数据库更新
      */
-    public void jdbcUpdate(String table, String value,String condition){
+    public static Boolean jdbcUpdate(User user){
 
         ResultSet resultSet = null;
         PreparedStatement preparedstatement = null;
@@ -106,24 +106,51 @@ public class JdbcGet_user {
 
         try {
             connection = JdbcUtils.getConnection();
+            switch (user.getWay()){
+                case "upsex":
+                    String sql2 = "update user  SET sex=?  WHERE  userid=?";
+                    preparedstatement = connection.prepareStatement(sql2);
+                    preparedstatement.setString(1, user.getSex());
+                    break;
+                case "uppass":
+                    String sql3 = "update user  SET password=?  WHERE  userid=?";
+                    preparedstatement = connection.prepareStatement(sql3);
+                    preparedstatement.setString(1, user.getPassword());
+                    break;
+                case "upname":
+                    String sql4 = "update user  SET username=?  WHERE  userid=?";
+                    preparedstatement = connection.prepareStatement(sql4);
+                    preparedstatement.setString(1, user.getUsername());
+                    break;
+                case "upschool":
+                    String sql5 = "update user  SET school=?  WHERE  userid=?";
+                    preparedstatement = connection.prepareStatement(sql5);
+                    preparedstatement.setString(1, user.getSchool());
+                    break;
+                case "upphone":
+                    String sql6 = "update user  SET phonenumber=?  WHERE  userid=?";
+                    preparedstatement = connection.prepareStatement(sql6);
+                    preparedstatement.setString(1, user.getPhonenumber());
+                    break;
+                case "upprof":
+                    String sql7 = "update user  SET profess=?  WHERE  userid=?";
+                    preparedstatement = connection.prepareStatement(sql7);
+                    preparedstatement.setString(1, user.getProfess());
+                    break;
+            }
+            preparedstatement.setString(2, user.getUserid());
 
-            String sql = "update ?  SET ?  WHERE  ?";
-            preparedstatement = connection.prepareStatement(sql);
 
-            //第一个? 用username字符串去替换
-            preparedstatement.setString(1, table);
-            preparedstatement.setString(2, value);
-            preparedstatement.setString(3, condition);
-
-
-            int result = preparedstatement.executeUpdate(sql);
+            int result = preparedstatement.executeUpdate();
             //executeUpdate:用来实现INSERT、UPDATE 或 DELETE 语句,返回值表示执行sql语句之后影响到的数据行数
 
             System.out.println("更新了"+result+"条数据");
+            return true;
 
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+            return false;
         }finally {
 
             JdbcUtils.releaseResc(resultSet, preparedstatement, connection);        //释放资源

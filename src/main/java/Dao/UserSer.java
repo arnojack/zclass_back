@@ -17,19 +17,25 @@ public class UserSer {
         User user=new User();
         user.setUserid(request.getParameter(User.USERID));
         user.setUsername(request.getParameter(User.USERNAME));
+        user.setPhonenumber(request.getParameter(User.PHONENUMBER));
+        user.setSex(request.getParameter(User.SEX));
         user.setPassword(request.getParameter(User.PASSWORD));
+        user.setSchool(request.getParameter(User.SCHOOL));
+        user.setProfess(request.getParameter(User.PROFESS));
         user.setWay(request.getParameter(User.WAY));
 
         JdbcGet_user jdbcGet_user =new JdbcGet_user();
         switch (user.getWay()){
             case "signin":
-                JdbcGet_user jdbcin = new JdbcGet_user();
                 if(jdbcGet_user.jdbcget_userSignin(user))
                     return "Ok";
                 break;
             case "signup":
-                JdbcGet_user jdbcup = new JdbcGet_user();
                 if(jdbcGet_user.jdbcInser_userSignup(user))
+                    return "Ok";
+                break;
+            default:
+                if(jdbcGet_user.jdbcUpdate(user))
                     return "Ok";
                 break;
         }
