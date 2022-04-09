@@ -17,7 +17,7 @@ public class JdbcGet_course {
         try {
             Connection connection = JdbcUtils.getConnection();                  //获取
             String sql1 = "select * from course where  cou_on_id = ?"; //要运行的sql语句,通过?来替换登录账号和密码
-            String sql2 = "select * from cou_stu,course where  cou_on_id = ? and stu_userid=?";
+            String sql2 = "select * from cou_stu  where cou_on_id = ? and stu_userid=?";
 
             PreparedStatement preparedStatement1 = connection.prepareStatement(sql1);
             PreparedStatement preparedStatement2 = connection.prepareStatement(sql2);
