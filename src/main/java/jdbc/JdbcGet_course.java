@@ -60,12 +60,12 @@ public class JdbcGet_course {
             return null;
         }
     }
-    public JSON jdbc_couidget(Cou_Stu cou_stu){
+    public JSON jdbc_idgetstu(Cou_Stu cou_stu){
 
         try {
             Connection connection = JdbcUtils.getConnection();                  //获取
-            String sql = "select * from cou_stu,course " +
-                    "where cou_stu.cou_on_id=course.cou_on_id and cou_on_id = ?"; //要运行的sql语句,通过?来替换登录账号和密码
+            String sql = "select * from cou_stu,user " +
+                    "where cou_stu.stu_userid=user.userid and cou_on_id = ?"; //要运行的sql语句,通过?来替换登录账号和密码
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
 

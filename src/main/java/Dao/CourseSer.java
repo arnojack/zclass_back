@@ -34,6 +34,11 @@ public class CourseSer {
                 JSON json1= jdbctea.jdbc_teaidget(course);
                 resultSet=json1 ;
                 break;
+            case "memget":
+                JdbcGet_course jdbcmem = new JdbcGet_course();
+                JSON json2= jdbcmem.jdbc_idgetstu(cou_stu);
+                resultSet=json2 ;
+                break;
         }
         return resultSet;
     }
