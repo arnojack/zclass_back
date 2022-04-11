@@ -78,6 +78,14 @@ public class CourseSer {
                 Course course3=getcourse(request,cou_stu.getCou_on_id());
                 resultSet= jdbclc.jdbc_coup(course3,"upclc");
                 break;
+            case "delall":
+                JdbcGet_course jdbcdelall = new JdbcGet_course();
+                resultSet= jdbcdelall.jdbc_deall(cou_stu);
+                break;
+            case "delstu":
+                JdbcGet_course jdbcdelstu = new JdbcGet_course();
+                resultSet= jdbcdelstu.jdbc_destu(cou_stu);
+                break;
         }
         return resultSet;
     }

@@ -31,7 +31,8 @@ public class JdbcGet_course {
             ResultSet resultSet1 = (preparedStatement1.executeQuery());
             ResultSet resultSet2 = (preparedStatement2.executeQuery());
 
-            return resultSet1.next()&& !resultSet2.next();            //有值则返回;
+            return resultSet1.next()&& !resultSet2.next()
+                    && !resultSet1.getString("tea_userid").equals(cou_stu.getStu_userid());            //有值则返回;
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -217,34 +218,58 @@ public class JdbcGet_course {
     /*
     数据库删除
      */
-    public void jdbc_cou_studel(Cou_Stu cou_stu){
+    public String jdbc_deall(Cou_Stu cou_stu){
 
-        ResultSet resultSet = null;
-        PreparedStatement preparedstatement = null;
+        PreparedStatement preparedstatement1 = null;
+        PreparedStatement preparedstatement2 = null;
         Connection connection = null;
 
         try {
             connection = JdbcUtils.getConnection();
 
-            String sql = "DELETE FROM cou_stu WHERE stu_userid=? and cou_on_id=?";
-            preparedstatement = connection.prepareStatement(sql);
+            String sql1 = "DELETE FROM course WHERE  cou_on_id=?";
+            String sql2 ="DELETE FROM cou_stu WHERE  cou_on_id=?";
+            preparedstatement1 = connection.prepareStatement(sql1);
+            preparedstatement2 = connection.prepareStatement(sql2);
 
             //第一个? 用username字符串去替换
-            preparedstatement.setString(1, cou_stu.getStu_userid());
-            preparedstatement.setInt(2, Integer.parseInt(cou_stu.getCou_on_id()));
+            preparedstatement1.setInt(1, Integer.parseInt(cou_stu.getCou_on_id()));
+            preparedstatement2.setInt(1, Integer.parseInt(cou_stu.getCou_on_id()));
 
-
-            int result = preparedstatement.executeUpdate();
+            int result1 = preparedstatement1.executeUpdate();
+            int result2 = preparedstatement2.executeUpdate();
             //executeUpdate:用来实现INSERT、UPDATE 或 DELETE 语句,返回值表示执行sql语句之后影响到的数据行数
 
-            System.out.println("更新了"+result+"条数据");
+            return "Ok";
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return "Wrong";
+        }
+    }
+    public String jdbc_destu(Cou_Stu cou_stu){
+
+        PreparedStatement preparedstatement1 = null;
+        Connection connection = null;
+
+        try {
+            connection = JdbcUtils.getConnection();
+
+            String sql1 = "DELETE FROM cou_stu WHERE  stu_userid=?";
+            preparedstatement1 = connection.prepareStatement(sql1);
+
+            //第一个? 用username字符串去替换
+            preparedstatement1.setInt(1, Integer.parseInt(cou_stu.getStu_userid()));
+
+            int result1 = preparedstatement1.executeUpdate();
+            //executeUpdate:用来实现INSERT、UPDATE 或 DELETE 语句,返回值表示执行sql语句之后影响到的数据行数
+
+            return "Ok";
 
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
-
-            JdbcUtils.releaseResc(resultSet, preparedstatement, connection);        //释放资源
+            return "Wrong";
         }
     }
 }
