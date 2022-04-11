@@ -42,8 +42,9 @@ public class JdbcGet_course {
 
         try {
             Connection connection = JdbcUtils.getConnection();                  //获取
-            String sql = "select * from cou_stu,course " +
-                    "where cou_stu.cou_on_id=course.cou_on_id and stu_userid = ?"; //要运行的sql语句,通过?来替换登录账号和密码
+            String sql = "select * from cou_stu,course,user " +
+                    "where cou_stu.cou_on_id=course.cou_on_id and course.tea_userid=user.userid " +
+                    "and stu_userid = ?"; //要运行的sql语句,通过?来替换登录账号和密码
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
@@ -87,7 +88,7 @@ public class JdbcGet_course {
         try {
             Connection connection = JdbcUtils.getConnection();                  //获取
 
-            String sql = "select * from course where tea_userid = ?"; //要运行的sql语句,通过?来替换登录账号和密码
+            String sql = "select * from course,user where course.tea_userid=user.userid and tea_userid = ?"; //要运行的sql语句,通过?来替换登录账号和密码
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
@@ -108,9 +109,50 @@ public class JdbcGet_course {
     /*
     数据库插入
      */
+    public String jdbc_coup(Course course ,String way){
+
+        PreparedStatement preparedstatement = null;
+        Connection connection = null;
+
+        try {
+            connection = JdbcUtils.getConnection();
+            switch (way){
+                case "upclname":
+                    String sql1 = "UPDATE course SET cou_on_name=? " +
+                            "WHERE cou_on_id=?;";
+                    preparedstatement = connection.prepareStatement(sql1);
+                    preparedstatement.setString(1, course.getCou_on_name());
+                    break;
+                case "upclgrade":
+                    String sql2 = "UPDATE course SET cou_grade=? " +
+                            "WHERE cou_on_id=?;";
+                    preparedstatement = connection.prepareStatement(sql2);
+                    preparedstatement.setString(1, course.getCou_grade());
+                    break;
+                case "upclc":
+                    String sql3 = "UPDATE course SET cou_class=? " +
+                            "WHERE cou_on_id=?;";
+                    preparedstatement = connection.prepareStatement(sql3);
+                    preparedstatement.setString(1, course.getCou_class());
+                    break;
+            }
+            preparedstatement.setInt(2, Integer.parseInt(course.getCou_on_id()));
+            int result = preparedstatement.executeUpdate();
+            //executeUpdate:用来实现INSERT、UPDATE 或 DELETE 语句,返回值表示执行sql语句之后影响到的数据行数
+
+            System.out.println("更新了"+result+"条数据");
+            return "Ok";
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return "Wrong";
+        }finally {
+            //释放资源
+        }
+    }
     public String jdbc_cou_stuin(Cou_Stu cou_stu){
 
-        ResultSet resultSet = null;
         PreparedStatement preparedstatement = null;
         Connection connection = null;
 
@@ -148,16 +190,15 @@ public class JdbcGet_course {
         try {
             connection = JdbcUtils.getConnection();
 
-            String sql = "insert into  course(cou_on_name,tea_userid,tea_name,cou_grade,cou_class)  value(?,?,?,?,?)";
+            String sql = "insert into  course(cou_on_name,tea_userid,cou_grade,cou_class)  value(?,?,?,?)";
             preparedstatement = connection.prepareStatement(sql);
 
 
             //第一个? 用username字符串去替换
             preparedstatement.setString(1, course.getCou_on_name());
             preparedstatement.setString(2, course.getTea_userid());
-            preparedstatement.setString(3, course.getTea_name());
-            preparedstatement.setString(4, course.getCou_grade());
-            preparedstatement.setString(5, course.getCou_class());
+            preparedstatement.setString(3, course.getCou_grade());
+            preparedstatement.setString(4, course.getCou_class());
 
             int result = preparedstatement.executeUpdate();
             //executeUpdate:用来实现INSERT、UPDATE 或 DELETE 语句,返回值表示执行sql语句之后影响到的数据行数
@@ -170,7 +211,6 @@ public class JdbcGet_course {
             e.printStackTrace();
             return "Wrong";
         }finally {
-
             JdbcUtils.releaseResc(resultSet, preparedstatement, connection);        //释放资源
         }
     }

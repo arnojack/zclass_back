@@ -20,7 +20,6 @@ public class CourseSer {
         cou_stu.setStu_userid(request.getParameter(Cou_Stu.STUID));
         cou_stu.setWay(request.getParameter(Cou_Stu.WAY));
 
-
         switch (cou_stu.getWay()){
             case "stuget":
                 JdbcGet_course jdbcstu = new JdbcGet_course();
@@ -61,17 +60,34 @@ public class CourseSer {
                 break;
             case "create":
                 JdbcGet_course jdbcreate = new JdbcGet_course();
-                Course course=new Course();
-                course.setTea_userid(request.getParameter(Course.TEAID));
-                course.setTea_name(request.getParameter(Course.TEANAME));
-                course.setCou_on_id(cou_stu.getCou_on_id());
-                course.setCou_on_name(request.getParameter(Course.COUONNAME));
-                course.setCou_grade(request.getParameter(Course.COUGRADE));
-                course.setCou_class(request.getParameter(Course.COUCLASS));
+                Course course=getcourse(request,cou_stu.getCou_on_id());
                 resultSet= jdbcreate.jdbc_couin(course);
+                break;
+            case "upclname":
+                JdbcGet_course jdbcname = new JdbcGet_course();
+                Course course1=getcourse(request,cou_stu.getCou_on_id());
+                resultSet= jdbcname.jdbc_coup(course1,"upclname");
+                break;
+            case "upclgrade":
+                JdbcGet_course jdbcgrade = new JdbcGet_course();
+                Course course2=getcourse(request,cou_stu.getCou_on_id());
+                resultSet= jdbcgrade.jdbc_coup(course2,"upclgrade");
+                break;
+            case "upclc":
+                JdbcGet_course jdbclc = new JdbcGet_course();
+                Course course3=getcourse(request,cou_stu.getCou_on_id());
+                resultSet= jdbclc.jdbc_coup(course3,"upclc");
                 break;
         }
         return resultSet;
     }
-
+    public Course getcourse(HttpServletRequest request ,String id){
+        Course course=new Course();
+        course.setTea_userid(request.getParameter(Course.TEAID));
+        course.setCou_on_id(id);
+        course.setCou_on_name(request.getParameter(Course.COUONNAME));
+        course.setCou_grade(request.getParameter(Course.COUGRADE));
+        course.setCou_class(request.getParameter(Course.COUCLASS));
+        return course;
+    }
 }

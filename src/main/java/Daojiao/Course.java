@@ -6,7 +6,6 @@ public class Course implements Serializable {
     private String cou_on_id;
     private String cou_on_name;
     private String tea_userid;
-    private String tea_name;
     private String cou_grade;
     private String cou_class;
     private String way;
@@ -20,7 +19,6 @@ public class Course implements Serializable {
     public static String COUGRADE= "cou_grade";
     public static String COUCLASS= "cou_class";
     public static String TEAID = "tea_userid";
-    public static String TEANAME = "tea_name";
 
     public String getCou_on_id() {
         return cou_on_id;
@@ -32,14 +30,6 @@ public class Course implements Serializable {
 
     public String getCou_on_name() {
         return cou_on_name;
-    }
-
-    public String getTea_name() {
-        return tea_name;
-    }
-
-    public void setTea_name(String tea_name) {
-        this.tea_name = tea_name;
     }
 
     public void setCou_on_name(String cou_on_name) {

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>网络聊天室</title>
 </head>
-<style >
+<style type="text/css">
     .msg_board {
         width: 322px;
         height: 100px;
@@ -87,7 +87,7 @@
         var userJson = roomName+","+userName;
         if ("WebSocket" in window) {
             if (webSocket == null) {
-                var url = "ws://192.168.0.106:8080/demo_war/chat/" + roomName;
+                var url = "ws://192.168.0.106:8080/demo_war/websocket/" + userJson;
                 // 打开一个 web socket
                 webSocket = new WebSocket(url);
             } else {
