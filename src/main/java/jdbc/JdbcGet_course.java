@@ -239,6 +239,7 @@ public class JdbcGet_course {
             int result1 = preparedstatement1.executeUpdate();
             int result2 = preparedstatement2.executeUpdate();
             //executeUpdate:用来实现INSERT、UPDATE 或 DELETE 语句,返回值表示执行sql语句之后影响到的数据行数
+            System.out.println("删除了"+result1+result2+"条数据");
 
             return "Ok";
         } catch (Exception e) {
@@ -255,15 +256,16 @@ public class JdbcGet_course {
         try {
             connection = JdbcUtils.getConnection();
 
-            String sql1 = "DELETE FROM cou_stu WHERE  stu_userid=?";
+            String sql1 = "DELETE FROM cou_stu WHERE  stu_userid=? and cou_on_id=?";
             preparedstatement1 = connection.prepareStatement(sql1);
 
             //第一个? 用username字符串去替换
             preparedstatement1.setInt(1, Integer.parseInt(cou_stu.getStu_userid()));
+            preparedstatement1.setInt(2, Integer.parseInt(cou_stu.getCou_on_id()));
 
             int result1 = preparedstatement1.executeUpdate();
             //executeUpdate:用来实现INSERT、UPDATE 或 DELETE 语句,返回值表示执行sql语句之后影响到的数据行数
-
+            System.out.println("删除了"+result1+"条数据");
             return "Ok";
 
         } catch (Exception e) {
