@@ -21,4 +21,21 @@
         <url-pattern>/CourseServlet</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>UploadHandleServlet2</servlet-name>
+        <servlet-class>service.UploadHandleServlet2</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UploadHandleServlet2</servlet-name>
+        <url-pattern>/UploadHandleServlet2</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DownLoadServlet1</servlet-name>
+        <servlet-class>service.DownLoadServlet1</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DownLoadServlet1</servlet-name>
+        <url-pattern>/DownLoadServlet1</url-pattern>
+    </servlet-mapping>
 </web-app>

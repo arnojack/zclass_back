@@ -23,6 +23,8 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-beans:5.3.16" />
           <element id="library" level="project" name="Maven: org.springframework:spring-core:5.3.16" />
           <element id="library" level="project" name="Maven: org.springframework:spring-jcl:5.3.16" />
+          <element id="library" level="project" name="Maven: org.apache.tomcat.embed:tomcat-embed-core:9.0.58" />
+          <element id="library" level="project" name="Maven: org.apache.tomcat:tomcat-annotations-api:9.0.58" />
         </element>
       </element>
       <element id="directory" name="META-INF">

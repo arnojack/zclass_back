@@ -13,8 +13,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
 
-import static Tool.Tool.resultSetToJSON;
-
 @WebServlet("/courseServlet")
 public class CourseServlet extends HttpServlet {
     public CourseServlet() {
