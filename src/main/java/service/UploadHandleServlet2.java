@@ -18,8 +18,8 @@ public class UploadHandleServlet2 extends HttpServlet{
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
 
@@ -27,16 +27,8 @@ public class UploadHandleServlet2 extends HttpServlet{
         String realPath = "F:/Zclass_date/upload";
         String method =request.getParameter("method");
         String userid = request.getParameter(User.USERID);
-        switch (method){
-            case "icon":
-                realPath=realPath+"/icon";
-                break;
-            case "work":
-                String cou_on_id= request.getParameter(Cou_Stu.COUONID);
-                String id= request.getParameter("id");
-                realPath=realPath+"/work"+"/"+cou_on_id+"/"+id;
-                break;
-        }
+        realPath = DownLoadServlet1.getString(request, realPath, method);
+
         File folder = new File(realPath);
         if (!folder.exists()){
             folder.mkdirs();
