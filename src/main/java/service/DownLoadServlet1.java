@@ -32,7 +32,7 @@ public class DownLoadServlet1 extends HttpServlet {
         File file = new File(realPath);
         //如果文件不存在
         if(!file.exists()){
-            System.out.println("文件不存在");
+            //System.out.println("文件不存在");
             response.setContentType("text/html;charset=UTF-8");
             PrintWriter out = response.getWriter();
             out.print("您要下载的资源已被删除！！");

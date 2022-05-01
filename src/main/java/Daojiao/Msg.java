@@ -34,7 +34,15 @@ public class Msg implements Serializable {
         this.user_ty=user_ty;
         this.room=room;
     }
-
+    public Msg(String room,String userid,String name,String user_ty,String content,int type,Date time){
+        this.room=room;
+        this.userid=userid;
+        this.username=name;
+        this.user_ty=user_ty;
+        this.content =content;
+        this.type = type;
+        this.time = time;
+    }
     public Msg(String userid,String name,String user_ty,String content,int type,Date time){
         this.userid=userid;
         this.username=name;
@@ -42,6 +50,14 @@ public class Msg implements Serializable {
         this.content =content;
         this.type = type;
         this.time = time;
+    }
+
+    public String getRoom() {
+        return room;
+    }
+
+    public void setRoom(String room) {
+        this.room = room;
     }
 
     public String getUser_ty() {
@@ -56,13 +72,6 @@ public class Msg implements Serializable {
 
     }
 
-    public String getRoom() {
-        return room;
-    }
-
-    public void setRoom(String room) {
-        this.room = room;
-    }
 
     public String getUserid() {
         return userid;
@@ -103,4 +112,5 @@ public class Msg implements Serializable {
     public Date getTime() {
         return time;
     }
+
 }

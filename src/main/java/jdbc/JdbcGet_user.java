@@ -19,6 +19,7 @@ public class JdbcGet_user {
             connection= JdbcUtils.getConnection();
             String sql = "select * from user where userid = ?"; //要运行的sql语句,通过?来替换登录账号和密码
 
+            assert connection != null;
             preparedStatement= connection.prepareStatement(sql);
 
             //第一个? 用username字符串去替换
@@ -30,8 +31,6 @@ public class JdbcGet_user {
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
-
         }
         return resultSet;
     }
