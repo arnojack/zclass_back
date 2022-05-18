@@ -53,7 +53,7 @@ public class MyWebSocket {
             e.printStackTrace();
         }
         Date date=new Date(System.currentTimeMillis());
-        Msg Message=new Msg(roomName,"sys",username,
+        Msg Message=new Msg(roomName,"sys","系统",
                 "sys",username+" 进入 "+roomName+" 课堂",Msg.TYPE_RECEIVED,date);
         broadcast(roomName,JSON.toJSONString(Message));
     }
@@ -81,6 +81,7 @@ public class MyWebSocket {
                 log.info("总人数为" + getOnlineCount()+"\n"+username+"-----进入----"+roomName+" 课堂");
                 m.setUserid("sys");
                 m.setUser_ty("sys");
+                m.setName("系统");
                 break;
         }
         broadcast(roomName, JSON.toJSONString(m));
@@ -113,7 +114,7 @@ public class MyWebSocket {
         subOnlineCount();
         log.info("总人数为" + getOnlineCount()+"\n"+username+"-----退出----"+roomName+" 课堂");
         Date date=new Date(System.currentTimeMillis());
-        Msg Message=new Msg(roomName,"sys",username,
+        Msg Message=new Msg(roomName,"sys","系统",
                 "sys",username+" 退出 "+roomName+" 课堂",Msg.TYPE_RECEIVED,date);
         broadcast(roomName,JSON.toJSONString(Message));
     }
