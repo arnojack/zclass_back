@@ -11,9 +11,9 @@ import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
-import java.util.Base64;
 import java.util.Date;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -31,6 +31,8 @@ public class MyWebSocket {
     private static Map<String, ConcurrentHashMap<String,Session>> rooms = new ConcurrentHashMap();
 
     private static Map<String,String> user=new ConcurrentHashMap<>();//用户在哪个课堂
+
+    String system="小助手";
     /**
      * 连接建立成功调用的方法
      * @param session  可选的参数。session为与某个客户端的连接会话，需要通过它来给客户端发送数据
@@ -38,24 +40,20 @@ public class MyWebSocket {
     @OnOpen
     public void onOpen(Session session,@PathParam("roomName")String roomString,@PathParam("userName")String userString,@PathParam("userId")String IdString){
         String roomName=Tool.unescape(roomString);
-        String username=Tool.unescape(userString);
         String userid=Tool.unescape(IdString);
         try{
-            addOnlineCount();//在线数加1
             if(user.containsKey(userid)){
                 rooms.get(user.get(userid)).remove(userid);
                 user.remove(userid);
+            }else {
+                addOnlineCount();//在线数加1
+                log.info("总人数： "+getOnlineCount());
             }
             user.put(userid,roomName);
             add(roomName,userid,session);
-            log.info("总人数为" + getOnlineCount()+"\n"+username+"-----进入----"+roomName+" 课堂");
         }catch (Exception e){
             e.printStackTrace();
         }
-        Date date=new Date(System.currentTimeMillis());
-        Msg Message=new Msg(roomName,"sys","系统",
-                "sys",username+" 进入 "+roomName+" 课堂",Msg.TYPE_RECEIVED,date);
-        broadcast(roomName,JSON.toJSONString(Message));
     }
 
     /**
@@ -72,16 +70,18 @@ public class MyWebSocket {
         String username=m.getName();
         switch (type){
             case "onOpen":
-                if(user.containsKey(userid)){
+                if(!Objects.equals(user.get(userid), roomName)){
                     rooms.get(user.get(userid)).remove(userid);
                     user.remove(userid);
+
+                    user.put(userid,roomName);
+                    add(roomName,userid,session);
                 }
-                user.put(userid,roomName);
-                add(roomName,userid,session);
-                log.info("总人数为" + getOnlineCount()+"\n"+username+"-----进入----"+roomName+" 课堂");
+                log.info(username+"-----进入----"+roomName+" 课堂");
                 m.setUserid("sys");
                 m.setUser_ty("sys");
-                m.setName("系统");
+                m.setName(system);
+                m.setContent(username+" 进入 "+roomName+" 课堂");
                 break;
         }
         broadcast(roomName, JSON.toJSONString(m));
@@ -106,17 +106,20 @@ public class MyWebSocket {
      */
     @OnClose
     public void onClose(Session session,@PathParam("roomName")String roomString,@PathParam("userName")String userString,@PathParam("userId")String IdString) {
-        String roomName=Tool.unescape(roomString);
         String username=Tool.unescape(userString);
         String userid=Tool.unescape(IdString);
-        rooms.get(user.get(userid)).remove(userid);
-        user.remove(userid);
-        subOnlineCount();
-        log.info("总人数为" + getOnlineCount()+"\n"+username+"-----退出----"+roomName+" 课堂");
+        String oldRoom=user.get(userid);
         Date date=new Date(System.currentTimeMillis());
-        Msg Message=new Msg(roomName,"sys","系统",
-                "sys",username+" 退出 "+roomName+" 课堂",Msg.TYPE_RECEIVED,date);
-        broadcast(roomName,JSON.toJSONString(Message));
+
+        subOnlineCount();
+        log.info("总人数： "+getOnlineCount());
+
+        rooms.get(oldRoom).remove(userid);
+        user.remove(userid);
+        log.info(username+"-----退出----"+oldRoom+" 课堂");
+        Msg Message=new Msg(oldRoom,"sys",system,
+                "sys",username+" 退出 "+oldRoom+" 课堂",Msg.TYPE_RECEIVED,date);
+        broadcast(oldRoom,JSON.toJSONString(Message));
     }
 
 

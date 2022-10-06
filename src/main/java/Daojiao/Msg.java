@@ -28,6 +28,14 @@ public class Msg implements Serializable {
     public static String TYPE = "type";
     public static String TIME = "time";
 
+    public Msg(Msg msg){
+        this.userid=msg.userid;
+        this.username=msg.username;
+        this.user_ty=msg.user_ty;
+        this.content =msg.content;
+        this.type = msg.type;
+        this.time = msg.time;
+    }
     public Msg(String room,String userid,String name,String user_ty){
         this.userid=userid;
         this.username=name;
