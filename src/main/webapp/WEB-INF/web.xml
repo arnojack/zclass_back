@@ -5,7 +5,7 @@
          version="4.0">
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
-        <servlet-class>service.LoginServlet</servlet-class>
+        <servlet-class>Servlet_.LoginServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -14,7 +14,7 @@
 
     <servlet>
         <servlet-name>CourseServlet</servlet-name>
-        <servlet-class>service.CourseServlet</servlet-class>
+        <servlet-class>Servlet_.CourseServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>CourseServlet</servlet-name>
@@ -23,7 +23,7 @@
 
     <servlet>
         <servlet-name>UploadHandleServlet2</servlet-name>
-        <servlet-class>service.UploadHandleServlet2</servlet-class>
+        <servlet-class>Servlet_.UploadHandleServlet2</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>UploadHandleServlet2</servlet-name>
@@ -32,7 +32,7 @@
 
     <servlet>
         <servlet-name>DownLoadServlet1</servlet-name>
-        <servlet-class>service.DownLoadServlet1</servlet-class>
+        <servlet-class>Servlet_.DownLoadServlet1</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>DownLoadServlet1</servlet-name>
@@ -40,7 +40,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>DownLoadAPK</servlet-name>
-        <servlet-class>service.DownLoadAPK</servlet-class>
+        <servlet-class>Servlet_.DownLoadAPK</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>DownLoadAPK</servlet-name>

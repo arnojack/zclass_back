@@ -1,7 +1,6 @@
-package Daojiao;
+package Entity_;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * JavaBean ,存储User上的 信息

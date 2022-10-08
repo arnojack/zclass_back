@@ -1,7 +1,7 @@
-package service;
+package Servlet_;
 
-import Dao.CourseSer;
-import Daojiao.Course;
+import Service_.CourseSer;
+import Entity_.Course;
 import com.alibaba.fastjson.JSON;
 
 import javax.servlet.ServletException;

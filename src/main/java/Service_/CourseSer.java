@@ -1,15 +1,11 @@
-package Dao;
+package Service_;
 
-import Daojiao.Cou_Stu;
-import Daojiao.Course;
+import Entity_.Cou_Stu;
+import Entity_.Course;
 import com.alibaba.fastjson.JSON;
-import jdbc.JdbcGet_course;
+import DAO_.JdbcGet_course;
 
 import javax.servlet.http.HttpServletRequest;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-import static Tool.Tool.resultSetToJSON;
 
 public class CourseSer {
     public JSON Queue(HttpServletRequest request) {

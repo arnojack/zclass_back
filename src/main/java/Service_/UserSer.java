@@ -1,14 +1,11 @@
-package Dao;
+package Service_;
 
 
-import Daojiao.User;
+import Entity_.User;
 import com.alibaba.fastjson.JSON;
-import jdbc.JdbcGet_user;
+import DAO_.JdbcGet_user;
 
 import javax.servlet.http.HttpServletRequest;
-import java.sql.ResultSet;
-
-import static Tool.Tool.resultSetToJSON;
 
 public class UserSer {
 

@@ -1,6 +1,6 @@
-package WebSocket;
+package Servlet_;
 
-import Daojiao.Msg;
+import Entity_.Msg;
 import Tool.Tool;
 import com.alibaba.fastjson.JSON;
 import org.apache.commons.logging.Log;
@@ -32,7 +32,7 @@ public class MyWebSocket {
 
     private static Map<String,String> user=new ConcurrentHashMap<>();//用户在哪个课堂
 
-    String system="小助手";
+    private final String system="小助手";
     /**
      * 连接建立成功调用的方法
      * @param session  可选的参数。session为与某个客户端的连接会话，需要通过它来给客户端发送数据

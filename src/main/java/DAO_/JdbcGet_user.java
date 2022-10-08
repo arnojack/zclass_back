@@ -1,6 +1,6 @@
-package jdbc;
+package DAO_;
 
-import Daojiao.User;
+import Entity_.User;
 import com.alibaba.fastjson.JSON;
 
 import java.sql.*;

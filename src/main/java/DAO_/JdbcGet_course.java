@@ -1,7 +1,7 @@
-package jdbc;
+package DAO_;
 
-import Daojiao.Cou_Stu;
-import Daojiao.Course;
+import Entity_.Cou_Stu;
+import Entity_.Course;
 import com.alibaba.fastjson.JSON;
 
 import java.sql.*;

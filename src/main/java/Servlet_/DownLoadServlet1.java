@@ -1,8 +1,8 @@
-package service;
+package Servlet_;
 
-import Daojiao.Cou_Stu;
-import Daojiao.Course;
-import Daojiao.User;
+import Entity_.Cou_Stu;
+import Entity_.Course;
+import Entity_.User;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

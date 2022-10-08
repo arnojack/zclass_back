@@ -1,20 +1,17 @@
-package service;
+package Servlet_;
 
-import Dao.UserSer;
-import Daojiao.User;
+import Service_.UserSer;
+import Entity_.User;
 import com.alibaba.fastjson.JSON;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.json.Json;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import static Tool.Tool.resultSetToJSON;
 
 
 @WebServlet("/loginServlet")

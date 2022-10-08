@@ -1,8 +1,4 @@
-package service;
-
-import Daojiao.Cou_Stu;
-import Daojiao.Course;
-import Daojiao.User;
+package Servlet_;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
