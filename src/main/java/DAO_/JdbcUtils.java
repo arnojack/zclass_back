@@ -15,7 +15,7 @@ public class JdbcUtils {
         url = "jdbc:mysql://127.0.0.1:3306/zclass" +
                 "?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
         user = "root";
-        pwd = "108904753";
+        pwd = "";
 
     }
 
